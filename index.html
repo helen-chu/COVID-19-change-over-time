@@ -85,7 +85,13 @@
               <div class='label'>20000</div>
               <div class='label'>30000+</div>
             </div>
+        </div>
+
+        <div class='session' id='sliderbar'>
+            <h2>Month: <label id='active-hour'>August 2020</label></h2>
+            <input id='slider' class='row' type='range' min='0' max='12' step='1' value='8' />
           </div>
+
     </div>
 
     <script>
@@ -105,7 +111,7 @@
             type: 'circle',
             source: {
             type: 'geojson',
-            data: './grouped.geojson' // replace this with the url of your own geojson
+            data: './sumByMonth.geojson' // replace this with the url of your own geojson
             },
             paint: {
             'circle-radius': [
@@ -113,7 +119,7 @@
                 ['linear'],
                 ['number', ['get', 'slided']],
                 0, 10,
-                40000, 50
+                40000, 40
             ],
             'circle-color': [
                 'interpolate',
@@ -128,8 +134,24 @@
             ],
             'circle-opacity': 0.8
             },
-            filter: ['==', ['string', ['get', 'date']], '2020-08-01']
+            filter: ['==', ['number', ['get', 'number']], 3]
         });
+
+        document.getElementById('slider').addEventListener('input', function(e) {
+        var month = parseInt(e.target.value);
+        // update the map
+        map.setFilter('cases', ['==', ['number', ['get', 'number']], month]);
+
+        // converting 0-23 hour to AMPM format
+        var months = [ "January 2020", "February 2020", "March 2020", "April 2020", "May 2020", "June 2020", 
+           "July 2020", "August 2020", "September 2020", "October 2020", "November 2020", "December 2020", "January 2021"];
+
+        var selectedMonthName = months[month];
+
+        // update text in the UI
+        document.getElementById('active-hour').innerText = selectedMonthName;
+        });
+
         });
 
     </script>
