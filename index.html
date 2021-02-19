@@ -89,7 +89,7 @@
 
         <div class='session' id='sliderbar'>
             <h2>Month: <label id='active-hour'>August 2020</label></h2>
-            <input id='slider' class='row' type='range' min='0' max='12' step='1' value='7' />
+            <input id='slider' class='row' type='range' min='0' max='12' step='1' value='5' />
           </div>
 
     </div>
@@ -134,7 +134,7 @@
             ],
             'circle-opacity': 0.8
             },
-            filter: ['==', ['number', ['get', 'number']], 3]
+            filter: ['==', ['number', ['get', 'number']], 5]
         });
 
         document.getElementById('slider').addEventListener('input', function(e) {
